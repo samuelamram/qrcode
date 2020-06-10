@@ -1,5 +1,7 @@
 import qrcode
 from datetime import datetime as dt
+import os
+import click
 from config import friends # from config.py (not commited in Git)
 
 LETTRES = "ABCDEFGHIJ"
@@ -42,7 +44,7 @@ def time2char(qr_time, dico):
     return ''.join([LETTRES[int(i)] for i in qr_timestamp_str])
 
 
-def create_qrcode(friend, dico):
+def create_qrcode(friend, dir, dico):
     """
     Crée un QR Code compatible.
     
@@ -56,14 +58,19 @@ def create_qrcode(friend, dico):
 
     img =  qrcode.make(data)
 
-    filename = 'img/' + friend['name'] + now.strftime('%Y%m%d%H%M%S') + '.png'
+    filename = os.path.join(dir, friend['name'] + now.strftime('%Y%m%d%H%M%S') + '.png')
 
     img.save(filename)
 
     return
 
-if __name__ == '__main__':
-
+@click.command()
+@click.option('--dir', type=click.Path(exists=True, dir_okay=True), default='img/')
+def create_qrcodes(dir):
+    click.echo(f'dir={dir}')
     for f in friends:
-        create_qrcode(f, DICO)
+        create_qrcode(f, dir, DICO)
 
+
+if __name__ == '__main__':
+    create_qrcodes()
