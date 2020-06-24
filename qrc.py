@@ -62,14 +62,15 @@ def create_qrcode(friend, dir, dico):
 
     img.save(filename)
 
-    return
+    return now
 
 @click.command()
 @click.option('--dir', type=click.Path(exists=True, dir_okay=True), default='img/')
 def create_qrcodes(dir):
     click.echo(f'dir={dir}')
     for f in friends:
-        create_qrcode(f, dir, DICO)
+        now = create_qrcode(f, dir, DICO)
+        print(f'QR code created with timestamp {now}')
 
 
 if __name__ == '__main__':
