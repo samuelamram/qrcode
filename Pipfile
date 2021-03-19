@@ -10,6 +10,3 @@ pylint = "*"
 qrcode = "*"
 pillow = "*"
 click = "*"
-
-[requires]
-python_version = "3.8"
