@@ -111,7 +111,7 @@ def cli():
 
 @cli.command()
 @click.option('--dir', type=click.Path(exists=True, dir_okay=True), default='img/')
-@click.option('--version', default=4)
+@click.option('--version', default=5)
 def c(dir, version):
     """
     Creates QR Codes
